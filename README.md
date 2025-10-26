@@ -1,5 +1,7 @@
 # PatternSphere
 
+> **Note**: Korean version available: [README_KR.md](README_KR.md)
+
 > A unified knowledge base for software design patterns
 
 **Version 1.0.0** - Production Ready
