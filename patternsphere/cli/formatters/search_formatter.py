@@ -7,6 +7,7 @@ Formats search results for terminal display with optional Rich formatting.
 from typing import List
 from patternsphere.search import SearchResult
 from patternsphere.config import settings
+from patternsphere.cli.formatters.text_utils import truncate_text
 
 
 class SearchResultsFormatter:
@@ -88,7 +89,7 @@ class SearchResultsFormatter:
         lines.append(f"   Tags: {tags_str}")
 
         # Intent (truncated if too long)
-        intent_preview = self._truncate_text(pattern.intent, 100)
+        intent_preview = truncate_text(pattern.intent, 100)
         lines.append(f"   Intent: {intent_preview}")
 
         # Matched fields (if available)
@@ -97,21 +98,6 @@ class SearchResultsFormatter:
             lines.append(f"   Matched in: {matched}")
 
         return "\n".join(lines)
-
-    def _truncate_text(self, text: str, max_length: int) -> str:
-        """
-        Truncate text to maximum length, adding ellipsis if needed.
-
-        Args:
-            text: Text to truncate
-            max_length: Maximum length
-
-        Returns:
-            Truncated text with ellipsis if needed
-        """
-        if len(text) <= max_length:
-            return text
-        return text[:max_length - 3] + "..."
 
     def format_summary(self, results: List[SearchResult]) -> str:
         """

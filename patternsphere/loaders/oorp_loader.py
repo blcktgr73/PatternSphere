@@ -86,123 +86,23 @@ class OORPLoader:
         self.repository = repository
         logger.info("OORPLoader initialized")
 
-    def load_from_file(self, file_path: str) -> LoaderStats:
+    def _load_patterns_from_data(
+        self,
+        patterns_data: List[Dict[str, Any]]
+    ) -> LoaderStats:
         """
-        Load patterns from a JSON file.
+        Extract common pattern loading logic.
 
-        This method reads patterns from a JSON file and adds them to the
-        repository. It continues loading even if individual patterns fail,
-        collecting error information for reporting.
-
-        Args:
-            file_path: Path to JSON file containing pattern data
-
-        Returns:
-            LoaderStats object with loading statistics
-
-        Raises:
-            FileNotFoundError: If the file doesn't exist
-            json.JSONDecodeError: If the file isn't valid JSON
-            ValueError: If the file format is invalid
-        """
-        start_time = time.perf_counter()
-
-        # Validate file exists
-        path = Path(file_path)
-        if not path.exists():
-            raise FileNotFoundError(f"Pattern file not found: {file_path}")
-
-        logger.info(f"Loading patterns from: {file_path}")
-
-        # Load JSON data
-        try:
-            with open(path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-        except json.JSONDecodeError as e:
-            logger.error(f"Invalid JSON in file {file_path}: {e}")
-            raise
-
-        # Validate data structure
-        if not isinstance(data, list):
-            raise ValueError(
-                f"Expected JSON array of patterns, got {type(data).__name__}"
-            )
-
-        # Load patterns
-        total_patterns = len(data)
-        loaded_successfully = 0
-        failed_patterns = 0
-        errors = []
-
-        for i, pattern_dict in enumerate(data, 1):
-            try:
-                # Create pattern from dictionary
-                pattern = Pattern.from_dict(pattern_dict)
-
-                # Add to repository
-                self.repository.add_pattern(pattern)
-                loaded_successfully += 1
-
-                logger.debug(
-                    f"Loaded pattern {i}/{total_patterns}: {pattern.name}"
-                )
-
-            except (ValueError, RepositoryError) as e:
-                failed_patterns += 1
-                pattern_name = pattern_dict.get('name', f'pattern_{i}')
-                error_msg = f"Failed to load '{pattern_name}': {str(e)}"
-                errors.append(error_msg)
-
-                logger.warning(error_msg)
-                # Continue loading other patterns
-
-        # Calculate duration
-        end_time = time.perf_counter()
-        duration_ms = (end_time - start_time) * 1000
-
-        # Create statistics
-        stats = LoaderStats(
-            total_patterns=total_patterns,
-            loaded_successfully=loaded_successfully,
-            failed_patterns=failed_patterns,
-            duration_ms=duration_ms,
-            errors=errors
-        )
-
-        logger.info(
-            f"Loading complete: {loaded_successfully}/{total_patterns} patterns "
-            f"loaded in {duration_ms:.2f}ms"
-        )
-
-        if errors:
-            logger.warning(f"{failed_patterns} patterns failed to load")
-
-        return stats
-
-    def load_from_dict(self, patterns_data: List[Dict[str, Any]]) -> LoaderStats:
-        """
-        Load patterns from a list of dictionaries.
-
-        This is useful for testing or when pattern data is already loaded
-        from another source.
+        This private method contains the core logic for loading patterns from
+        a list of dictionaries, used by both load_from_file() and load_from_dict().
 
         Args:
             patterns_data: List of pattern dictionaries
 
         Returns:
             LoaderStats object with loading statistics
-
-        Raises:
-            ValueError: If patterns_data is not a list
         """
         start_time = time.perf_counter()
-
-        if not isinstance(patterns_data, list):
-            raise ValueError(
-                f"Expected list of pattern dicts, got {type(patterns_data).__name__}"
-            )
-
-        logger.info(f"Loading {len(patterns_data)} patterns from dictionaries")
 
         total_patterns = len(patterns_data)
         loaded_successfully = 0
@@ -249,7 +149,79 @@ class OORPLoader:
             f"loaded in {duration_ms:.2f}ms"
         )
 
+        if errors:
+            logger.warning(f"{failed_patterns} patterns failed to load")
+
         return stats
+
+    def load_from_file(self, file_path: str) -> LoaderStats:
+        """
+        Load patterns from a JSON file.
+
+        This method reads patterns from a JSON file and adds them to the
+        repository. It continues loading even if individual patterns fail,
+        collecting error information for reporting.
+
+        Args:
+            file_path: Path to JSON file containing pattern data
+
+        Returns:
+            LoaderStats object with loading statistics
+
+        Raises:
+            FileNotFoundError: If the file doesn't exist
+            json.JSONDecodeError: If the file isn't valid JSON
+            ValueError: If the file format is invalid
+        """
+        # Validate file exists
+        path = Path(file_path)
+        if not path.exists():
+            raise FileNotFoundError(f"Pattern file not found: {file_path}")
+
+        logger.info(f"Loading patterns from: {file_path}")
+
+        # Load JSON data
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        except json.JSONDecodeError as e:
+            logger.error(f"Invalid JSON in file {file_path}: {e}")
+            raise
+
+        # Validate data structure
+        if not isinstance(data, list):
+            raise ValueError(
+                f"Expected JSON array of patterns, got {type(data).__name__}"
+            )
+
+        # Use common loading logic
+        return self._load_patterns_from_data(data)
+
+    def load_from_dict(self, patterns_data: List[Dict[str, Any]]) -> LoaderStats:
+        """
+        Load patterns from a list of dictionaries.
+
+        This is useful for testing or when pattern data is already loaded
+        from another source.
+
+        Args:
+            patterns_data: List of pattern dictionaries
+
+        Returns:
+            LoaderStats object with loading statistics
+
+        Raises:
+            ValueError: If patterns_data is not a list
+        """
+        if not isinstance(patterns_data, list):
+            raise ValueError(
+                f"Expected list of pattern dicts, got {type(patterns_data).__name__}"
+            )
+
+        logger.info(f"Loading {len(patterns_data)} patterns from dictionaries")
+
+        # Use common loading logic
+        return self._load_patterns_from_data(patterns_data)
 
     def __repr__(self) -> str:
         """Developer-friendly representation."""

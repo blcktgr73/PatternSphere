@@ -6,6 +6,7 @@ Formats complete pattern details for terminal display.
 
 from patternsphere.models import Pattern
 from patternsphere.config import settings
+from patternsphere.cli.formatters.text_utils import wrap_text, truncate_text
 
 
 class PatternViewFormatter:
@@ -65,26 +66,26 @@ class PatternViewFormatter:
         # Intent section
         lines.append("INTENT")
         lines.append("-" * 40)
-        lines.append(self._wrap_text(pattern.intent))
+        lines.append(wrap_text(pattern.intent, width=min(self.terminal_width, 80)))
         lines.append("")
 
         # Problem section
         lines.append("PROBLEM")
         lines.append("-" * 40)
-        lines.append(self._wrap_text(pattern.problem))
+        lines.append(wrap_text(pattern.problem, width=min(self.terminal_width, 80)))
         lines.append("")
 
         # Solution section
         lines.append("SOLUTION")
         lines.append("-" * 40)
-        lines.append(self._wrap_text(pattern.solution))
+        lines.append(wrap_text(pattern.solution, width=min(self.terminal_width, 80)))
         lines.append("")
 
         # Consequences section
         if pattern.consequences:
             lines.append("CONSEQUENCES")
             lines.append("-" * 40)
-            lines.append(self._wrap_text(pattern.consequences))
+            lines.append(wrap_text(pattern.consequences, width=min(self.terminal_width, 80)))
             lines.append("")
 
         # Related patterns section
@@ -98,53 +99,6 @@ class PatternViewFormatter:
         lines.append("=" * min(self.terminal_width, 80))
 
         return "\n".join(lines)
-
-    def _wrap_text(self, text: str, indent: int = 0) -> str:
-        """
-        Wrap text to terminal width.
-
-        Args:
-            text: Text to wrap
-            indent: Number of spaces to indent
-
-        Returns:
-            Wrapped text
-        """
-        # Simple line-based wrapping
-        # For production, could use textwrap module
-        max_width = min(self.terminal_width, 80) - indent
-
-        # Split into paragraphs
-        paragraphs = text.split('\n')
-        wrapped_paragraphs = []
-
-        for para in paragraphs:
-            if not para.strip():
-                wrapped_paragraphs.append("")
-                continue
-
-            # Simple word-based wrapping
-            words = para.split()
-            current_line = " " * indent
-            lines = []
-
-            for word in words:
-                if len(current_line.strip()) + len(word) + 1 <= max_width:
-                    if current_line.strip():
-                        current_line += " " + word
-                    else:
-                        current_line = " " * indent + word
-                else:
-                    if current_line.strip():
-                        lines.append(current_line)
-                    current_line = " " * indent + word
-
-            if current_line.strip():
-                lines.append(current_line)
-
-            wrapped_paragraphs.append("\n".join(lines))
-
-        return "\n".join(wrapped_paragraphs)
 
     def format_compact(self, pattern: Pattern) -> str:
         """
@@ -161,6 +115,6 @@ class PatternViewFormatter:
         lines.append(f"Category: {pattern.category}")
         lines.append(f"Tags: {', '.join(pattern.tags[:5])}")
         lines.append("")
-        lines.append(f"Intent: {pattern.intent[:200]}...")
+        lines.append(f"Intent: {truncate_text(pattern.intent, 200)}")
 
         return "\n".join(lines)

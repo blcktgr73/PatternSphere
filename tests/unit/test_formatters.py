@@ -134,16 +134,16 @@ class TestSearchResultsFormatter:
 
     def test_truncate_text_short(self):
         """Test text truncation with short text."""
-        formatter = SearchResultsFormatter()
+        from patternsphere.cli.formatters.text_utils import truncate_text
         text = "Short text"
-        truncated = formatter._truncate_text(text, 100)
+        truncated = truncate_text(text, 100)
         assert truncated == text
 
     def test_truncate_text_long(self):
         """Test text truncation with long text."""
-        formatter = SearchResultsFormatter()
+        from patternsphere.cli.formatters.text_utils import truncate_text
         text = "A" * 200
-        truncated = formatter._truncate_text(text, 100)
+        truncated = truncate_text(text, 100)
         assert len(truncated) == 100
         assert truncated.endswith("...")
 
@@ -241,18 +241,18 @@ class TestPatternViewFormatter:
 
     def test_wrap_text(self, sample_pattern):
         """Test text wrapping."""
-        formatter = PatternViewFormatter(terminal_width=50)
+        from patternsphere.cli.formatters.text_utils import wrap_text
         long_text = "This is a very long text that should be wrapped to fit within the terminal width limit."
-        wrapped = formatter._wrap_text(long_text)
+        wrapped = wrap_text(long_text, width=50)
 
         # Text should be wrapped
         assert "\n" in wrapped or len(wrapped) <= 50
 
     def test_wrap_text_with_paragraphs(self):
         """Test wrapping text with multiple paragraphs."""
-        formatter = PatternViewFormatter(terminal_width=50)
+        from patternsphere.cli.formatters.text_utils import wrap_text
         text = "First paragraph.\n\nSecond paragraph."
-        wrapped = formatter._wrap_text(text)
+        wrapped = wrap_text(text, width=50)
 
         # Should preserve paragraph breaks
         assert "\n\n" in wrapped or "\n \n" in wrapped
