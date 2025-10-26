@@ -1,0 +1,90 @@
+[
+  {
+    "id": "d2ffef1e-8e5c-474e-8ef2-e6c0cb4cc73d",
+    "name": "Read all the Code in One Hour",
+    "intent": "Get a first impression of the system",
+    "problem": "You need to quickly understand what a legacy system does",
+    "context": "You have access to source code but limited time",
+    "solution": "Skim through all source files systematically",
+    "consequences": "You get broad understanding but miss details",
+    "related_patterns": [
+      "Skim the Documentation",
+      "Interview During Demo"
+    ],
+    "category": "First Contact",
+    "tags": [
+      "assessment",
+      "overview",
+      "time-boxed"
+    ],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": [
+        "Serge Demeyer",
+        "Stéphane Ducasse",
+        "Oscar Nierstrasz"
+      ],
+      "publication_year": 2002,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    },
+    "created_at": "2025-10-25T22:13:38.522985"
+  },
+  {
+    "id": "c223b7bd-50fb-4a8b-a76a-9567d316cc92",
+    "name": "Write Tests to Understand",
+    "intent": "Develop tests to understand how code works",
+    "problem": "Documentation is missing or outdated",
+    "context": "You need to understand specific functionality",
+    "solution": "Write tests that exercise the code",
+    "consequences": "Tests provide living documentation",
+    "related_patterns": [
+      "Grow Your Test Base Incrementally"
+    ],
+    "category": "Tests",
+    "tags": [
+      "testing",
+      "documentation",
+      "understanding"
+    ],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": [
+        "Serge Demeyer",
+        "Stéphane Ducasse",
+        "Oscar Nierstrasz"
+      ],
+      "publication_year": 2002,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    },
+    "created_at": "2025-10-25T22:13:38.523030"
+  },
+  {
+    "id": "4894cd36-26a5-4a38-8a78-6a61fb84e02c",
+    "name": "Refactor to Understand",
+    "intent": "Improve code structure to understand it better",
+    "problem": "Code is so poorly structured you cannot understand it",
+    "context": "You need to understand messy legacy code",
+    "solution": "Make small, safe refactorings to improve clarity",
+    "consequences": "Code becomes more understandable and maintainable",
+    "related_patterns": [
+      "Write Tests to Understand"
+    ],
+    "category": "Initial Understanding",
+    "tags": [
+      "refactoring",
+      "understanding",
+      "code-quality"
+    ],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": [
+        "Serge Demeyer",
+        "Stéphane Ducasse",
+        "Oscar Nierstrasz"
+      ],
+      "publication_year": 2002,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    },
+    "created_at": "2025-10-25T22:13:38.523045"
+  }
+]

@@ -1,0 +1,97 @@
+[
+  {
+    "id": "oorp-001",
+    "name": "Read all the Code in One Hour",
+    "intent": "Get a first impression of the system by reading all the code in one hour",
+    "problem": "You need to quickly understand what a legacy system does and how it is structured",
+    "context": "You have been given responsibility for a legacy system and have access to the source code but limited time for initial assessment",
+    "solution": "Skim through all source files systematically to get a broad overview. Focus on structure rather than details. Look for key abstractions, main components, and overall architecture. Time-box the activity to one hour to maintain focus.",
+    "consequences": "You get a broad understanding of the system but miss low-level details. This overview helps guide deeper investigation. The time constraint forces you to focus on the big picture rather than getting lost in details.",
+    "related_patterns": ["Skim the Documentation", "Interview During Demo", "Speculate about Design"],
+    "category": "First Contact",
+    "tags": ["assessment", "overview", "time-boxed", "legacy-code"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2002,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    },
+    "created_at": "2024-01-01T00:00:00"
+  },
+  {
+    "id": "oorp-002",
+    "name": "Speculate about Design",
+    "intent": "Form hypotheses about the system design to guide further investigation",
+    "problem": "You need direction for detailed analysis of unfamiliar code",
+    "context": "You have completed initial assessment activities like reading the code or documentation but lack deep understanding of the system's design decisions",
+    "solution": "Make educated guesses about the architecture, design patterns used, and key abstractions. Document your hypotheses. Then verify them through code analysis, testing, or interviews. Use wrong guesses as learning opportunities.",
+    "consequences": "Helps focus your investigation on specific aspects. Wrong hypotheses can waste time but often lead to important insights. The act of forming hypotheses forces you to think critically about the design.",
+    "related_patterns": ["Read all the Code in One Hour", "Analyze the Persistent Data", "Interview During Demo"],
+    "category": "Initial Understanding",
+    "tags": ["analysis", "hypothesis", "architecture", "design-patterns"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2002,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    },
+    "created_at": "2024-01-01T00:00:00"
+  },
+  {
+    "id": "oorp-003",
+    "name": "Write Tests to Understand",
+    "intent": "Develop tests to understand how code works",
+    "problem": "Documentation is missing or outdated for legacy code and you need to understand specific functionality",
+    "context": "You are working with undocumented code and need to understand its behavior to make safe modifications",
+    "solution": "Write tests that exercise the code you want to understand. Start with simple test cases and gradually increase complexity. Use tests to document expected behavior. Failed tests reveal assumptions and edge cases.",
+    "consequences": "Tests provide living documentation that stays synchronized with code. You gain confidence in your understanding. Tests enable safe refactoring. However, writing tests takes time initially.",
+    "related_patterns": ["Write Tests to Enable Evolution", "Grow Your Test Base Incrementally", "Test the Interface, Not the Implementation"],
+    "category": "Tests",
+    "tags": ["testing", "documentation", "understanding", "legacy-code"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2002,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    },
+    "created_at": "2024-01-01T00:00:00"
+  },
+  {
+    "id": "oorp-004",
+    "name": "Refactor to Understand",
+    "intent": "Improve code structure to understand it better",
+    "problem": "Code is so poorly structured that you cannot understand what it does",
+    "context": "You need to understand messy legacy code to modify it safely",
+    "solution": "Make small, safe refactorings to improve code clarity. Extract methods, rename variables, eliminate duplication. Each refactoring improves your understanding and makes the code more maintainable. Ensure tests are in place before refactoring.",
+    "consequences": "Code becomes more understandable and maintainable. Refactoring forces you to understand the code deeply. Risk of introducing bugs if done without tests. Takes time but pays off in easier future maintenance.",
+    "related_patterns": ["Write Tests to Understand", "Migrate Systems Incrementally", "Always Have a Running Version"],
+    "category": "Initial Understanding",
+    "tags": ["refactoring", "understanding", "code-quality", "legacy-code"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2002,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    },
+    "created_at": "2024-01-01T00:00:00"
+  },
+  {
+    "id": "oorp-005",
+    "name": "Always Have a Running Version",
+    "intent": "Maintain a working version of the system at all times during reengineering",
+    "problem": "Large-scale changes risk breaking the system for extended periods",
+    "context": "You are reengineering a system that must continue operating while being modified",
+    "solution": "Make changes incrementally. Ensure the system compiles and passes tests after each change. Use version control to maintain rollback capability. Deploy changes gradually. Never commit broken code to the main branch.",
+    "consequences": "Reduces risk of extended downtime. Changes are easier to debug because each increment is small. May slow initial progress but reduces overall risk. Requires discipline and good version control practices.",
+    "related_patterns": ["Migrate Systems Incrementally", "Regression Test After Every Change", "Deprecate Obsolete Interfaces"],
+    "category": "Migration Strategies",
+    "tags": ["risk-management", "incremental", "version-control", "testing"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2002,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    },
+    "created_at": "2024-01-01T00:00:00"
+  }
+]

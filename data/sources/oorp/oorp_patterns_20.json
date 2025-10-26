@@ -1,0 +1,342 @@
+[
+  {
+    "name": "Read all the Code in One Hour",
+    "intent": "Quickly gain a broad overview of an unfamiliar codebase to understand its structure and key components.",
+    "problem": "When starting work on a legacy system, you need to understand the overall architecture and identify the most important parts without getting lost in details.",
+    "context": "You have just joined a project with an existing codebase, or you need to evaluate a system for maintenance or reengineering. Time is limited and you need to get oriented quickly.",
+    "solution": "Spend exactly one hour reading through the code at a high level. Focus on package structure, class names, major interfaces, and code organization. Take notes on what you see but don't dive deep into implementation details. After one hour, review your notes and identify areas that need deeper investigation.",
+    "consequences": "You gain a mental map of the system structure quickly. However, your understanding will be superficial and you'll need follow-up investigations. This pattern works best for systems that are well-organized with clear naming conventions.",
+    "related_patterns": ["Skim the Documentation", "Interview During Demo"],
+    "category": "First Contact",
+    "tags": ["onboarding", "code-reading", "overview", "time-boxed"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Skim the Documentation",
+    "intent": "Extract useful information from documentation even when it's incomplete, outdated, or unreliable.",
+    "problem": "Documentation exists but its quality and accuracy are questionable. You need to extract whatever value you can without wasting time on misleading information.",
+    "context": "You're investigating a legacy system that has some documentation, but you suspect it may not reflect the current state of the code.",
+    "solution": "Quickly scan through all available documentation to get an overview. Look for high-level architecture diagrams, domain concepts, and design decisions. Cross-reference documentation with actual code to verify accuracy. Note discrepancies but don't try to fix them yet. Use the documentation as a starting point for forming hypotheses about the system.",
+    "consequences": "You extract maximum value from imperfect documentation. You avoid being misled by outdated information. However, you still need to verify everything against the actual code.",
+    "related_patterns": ["Read all the Code in One Hour", "Interview During Demo"],
+    "category": "First Contact",
+    "tags": ["documentation", "verification", "knowledge-extraction", "legacy-systems"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Interview During Demo",
+    "intent": "Gather knowledge about a system by observing it in action while questioning domain experts.",
+    "problem": "You need to understand both how the system works and what it's supposed to do, but reading code and documentation alone is insufficient.",
+    "context": "Domain experts are available who understand the business requirements. The system is operational and can be demonstrated.",
+    "solution": "Arrange for a domain expert to demonstrate the system's key features. As they demonstrate, ask questions about what the system is doing, why it does it that way, and what business rules are being applied. Take detailed notes linking business concepts to system behavior. Record which parts of the interface correspond to which business processes.",
+    "consequences": "You gain understanding of both technical implementation and business requirements. The demo provides context that makes code reading more effective. However, experts may not demonstrate edge cases or error conditions.",
+    "related_patterns": ["Skim the Documentation", "Do a Mock Installation"],
+    "category": "First Contact",
+    "tags": ["knowledge-transfer", "domain-expertise", "requirements", "demonstration"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Do a Mock Installation",
+    "intent": "Learn about system dependencies and configuration by performing a clean installation.",
+    "problem": "You need to understand what the system depends on and how it's configured, but this information may not be well documented.",
+    "context": "You have access to installation procedures and a clean environment for testing. The system must be deployable to new environments.",
+    "solution": "Set up a clean environment and attempt to install the system from scratch. Document every dependency you discover, every configuration file you need to create, and every error you encounter. Note which components are essential and which are optional. Create or update installation documentation based on your experience.",
+    "consequences": "You gain deep understanding of system dependencies and deployment requirements. You improve or create installation documentation. However, this process can be time-consuming and may require significant troubleshooting.",
+    "related_patterns": ["Interview During Demo", "Analyze the Persistent Data"],
+    "category": "First Contact",
+    "tags": ["installation", "dependencies", "configuration", "deployment"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Chat with the Maintainers",
+    "intent": "Gather insider knowledge about a system by talking with the people who have been maintaining it.",
+    "problem": "Documentation is incomplete and the code doesn't tell the whole story. You need to learn about the system's history, known problems, and undocumented features.",
+    "context": "Current or former maintainers are available and willing to share their knowledge. You've done enough initial investigation to ask informed questions.",
+    "solution": "Prepare specific questions based on your initial investigation. Interview maintainers about system history, design decisions, known bugs, workarounds, and areas of technical debt. Ask about parts of the code they avoid touching and why. Take detailed notes and follow up on topics that need clarification.",
+    "consequences": "You gain valuable insights that aren't documented anywhere. You learn about landmines to avoid and opportunities for improvement. However, information may be subjective or biased based on individual experiences.",
+    "related_patterns": ["Interview During Demo", "Read all the Code in One Hour"],
+    "category": "First Contact",
+    "tags": ["knowledge-transfer", "maintainer-insight", "tribal-knowledge", "interviews"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Analyze the Persistent Data",
+    "intent": "Understand the system's core domain model by examining its database schema and persistent data structures.",
+    "problem": "The domain model isn't clear from the code alone. You need to understand what information the system manages and how it's organized.",
+    "context": "The system uses a database or other persistent storage. You have access to examine the schema and sample data.",
+    "solution": "Study the database schema, table relationships, and column definitions. Examine sample data to understand what information is actually stored. Create an entity-relationship diagram. Look for tables that are frequently joined or referenced. Identify core domain entities versus supporting tables. Compare the database model with the object model in the code.",
+    "consequences": "You gain insight into the true domain model and data relationships. You understand what information the system manages. However, the schema may contain legacy artifacts or denormalized structures that complicate understanding.",
+    "related_patterns": ["Do a Mock Installation", "Speculate about Design"],
+    "category": "Initial Understanding",
+    "tags": ["database", "domain-model", "persistence", "data-analysis"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Speculate about Design",
+    "intent": "Form hypotheses about the system's design intent to guide further investigation.",
+    "problem": "The design decisions behind the code aren't obvious. You need a framework for understanding why the system is structured the way it is.",
+    "context": "You've completed initial investigation and have a basic understanding of the system. You're ready to form theories about its design.",
+    "solution": "Based on your observations, formulate explicit hypotheses about design patterns used, architectural decisions made, and rationale behind key structures. Write down these hypotheses and identify what evidence would confirm or refute them. Use these hypotheses to guide deeper investigation. Be prepared to revise your theories as you learn more.",
+    "consequences": "You develop a mental model of the system's design intent. Your investigations become more focused and purposeful. However, your initial hypotheses may be wrong and need revision.",
+    "related_patterns": ["Analyze the Persistent Data", "Read all the Code in One Hour"],
+    "category": "Initial Understanding",
+    "tags": ["hypothesis", "design-intent", "architecture", "investigation"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Study the Exceptional Entities",
+    "intent": "Identify outliers in the system that don't follow normal patterns to discover hidden complexity or special cases.",
+    "problem": "Most code follows consistent patterns, but some entities are unusually complex or structured differently. These outliers often indicate important edge cases or design issues.",
+    "context": "You've gained basic understanding of the system's normal patterns. You've noticed some classes, methods, or modules that stand out as unusual.",
+    "solution": "Identify classes that are much larger than average, methods with unusual complexity, or components that don't fit normal patterns. Investigate why these entities are exceptional. They often represent: complex business rules, performance optimizations, bug fixes, or incomplete refactorings. Document what makes them special and whether their complexity is justified.",
+    "consequences": "You discover important edge cases and special requirements. You identify potential candidates for refactoring. However, some exceptional entities may be legitimately complex and necessary.",
+    "related_patterns": ["Speculate about Design", "Look for the Contracts"],
+    "category": "Initial Understanding",
+    "tags": ["outliers", "complexity", "edge-cases", "code-smells"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Look for the Contracts",
+    "intent": "Identify and document the implicit contracts and assumptions in code interfaces.",
+    "problem": "Code interfaces often have undocumented preconditions, postconditions, and invariants that must be understood to modify the code safely.",
+    "context": "You're examining a component's interface to understand how to use it or modify it. The contracts aren't explicitly documented.",
+    "solution": "For each public method, identify what assumptions it makes about inputs (preconditions), what it guarantees about outputs (postconditions), and what must remain true (invariants). Look at validation code, exception handling, and comments. Examine how the method is called throughout the system. Document these contracts explicitly, preferably in code.",
+    "consequences": "You understand the true requirements for using and modifying interfaces. You can modify code more safely. However, discovering all implicit contracts requires careful analysis and may be time-consuming.",
+    "related_patterns": ["Study the Exceptional Entities", "Tie Code and Questions"],
+    "category": "Initial Understanding",
+    "tags": ["contracts", "preconditions", "postconditions", "interface-design"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Tie Code and Questions",
+    "intent": "Maintain an explicit connection between questions you have about the system and the specific code that raises those questions.",
+    "problem": "During investigation, you encounter code that raises questions you can't immediately answer. These questions get forgotten or disconnected from their context.",
+    "context": "You're actively investigating a system and discovering things you don't understand. You need to track open questions systematically.",
+    "solution": "When you encounter confusing code, immediately document your question with a direct reference to the code location (file, class, method, line number). Maintain a list of open questions organized by code location or topic. As you answer questions, document the answers in the same list. Review your question list regularly to guide further investigation.",
+    "consequences": "Questions don't get lost and remain connected to their context. You can track your growing understanding systematically. However, maintaining the list requires discipline and time.",
+    "related_patterns": ["Look for the Contracts", "Record Business Rules as Tests"],
+    "category": "Initial Understanding",
+    "tags": ["investigation", "documentation", "knowledge-management", "questions"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Record Business Rules as Tests",
+    "intent": "Capture your understanding of business rules by encoding them as executable tests.",
+    "problem": "Business rules are scattered throughout code and documentation. You need to verify your understanding and prevent regression when refactoring.",
+    "context": "You're discovering business rules in a legacy system. The system lacks comprehensive tests. You want to preserve the correct behavior while refactoring.",
+    "solution": "As you discover business rules, immediately write tests that verify them. Include both typical cases and boundary conditions. Document why each test exists with comments explaining the business rule. Organize tests by business concept. Run tests frequently to ensure refactorings preserve business logic.",
+    "consequences": "Business rules become explicitly documented and verified. You gain confidence to refactor safely. The test suite becomes living documentation. However, creating comprehensive tests is time-consuming.",
+    "related_patterns": ["Tie Code and Questions", "Write Tests to Enable Evolution"],
+    "category": "Initial Understanding",
+    "tags": ["testing", "business-rules", "documentation", "refactoring-safety"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Refactor to Understand",
+    "intent": "Improve code structure incrementally to make it more understandable while investigating a system.",
+    "problem": "Code structure is confusing and impedes understanding. You need to understand the code but also improve it for future maintainers.",
+    "context": "You have permission to modify the code. Tests exist or can be written to verify your changes. The code's structure is hindering comprehension.",
+    "solution": "As you read code, perform small refactorings that make it clearer: rename variables and methods, extract methods, introduce explaining variables. Make each refactoring small and immediately verifiable. Run tests after each change. Document what you learn through the refactoring process.",
+    "consequences": "Code becomes more understandable as you work with it. Future maintainers benefit from your improvements. Your understanding deepens through the act of refactoring. However, you must be disciplined to keep changes small and safe.",
+    "related_patterns": ["Record Business Rules as Tests", "Write Tests to Enable Evolution"],
+    "category": "Detailed Model Capture",
+    "tags": ["refactoring", "code-clarity", "incremental-improvement", "understanding"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Write Tests to Enable Evolution",
+    "intent": "Create a comprehensive test suite that enables safe evolution of a legacy system.",
+    "problem": "A legacy system lacks tests, making it dangerous to modify. You need to add features or fix bugs without breaking existing functionality.",
+    "context": "You need to modify a system that lacks adequate tests. You have time to invest in creating tests before making changes.",
+    "solution": "Before modifying code, write tests that verify current behavior (even if that behavior includes bugs you plan to fix). Focus tests on the areas you plan to change. Start with integration tests for high-level behavior, then add unit tests for specific components. Aim for enough coverage to detect regressions, not perfect coverage.",
+    "consequences": "You can modify code with confidence. Tests document current behavior. Future changes become safer. However, creating tests for legacy code is challenging and time-consuming.",
+    "related_patterns": ["Record Business Rules as Tests", "Refactor to Understand"],
+    "category": "Detailed Model Capture",
+    "tags": ["testing", "legacy-code", "refactoring-safety", "test-coverage"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Split Up God Class",
+    "intent": "Break down a large, monolithic class into smaller, more focused classes with clear responsibilities.",
+    "problem": "A class has grown to handle too many responsibilities, making it difficult to understand, test, and modify. It violates the Single Responsibility Principle.",
+    "context": "You've identified a class that is exceptionally large and handles multiple unrelated concerns. Tests exist or can be written. You have permission to refactor.",
+    "solution": "Analyze the God Class to identify distinct responsibilities. Create new classes for each responsibility. Move related methods and fields to the new classes. Update the God Class to delegate to the new classes. Refactor incrementally, running tests after each change. Consider using Extract Class, Extract Subclass, or Extract Interface refactorings.",
+    "consequences": "Code becomes more modular and maintainable. Each class has a clear purpose. Testing becomes easier. However, the refactoring requires significant effort and careful coordination.",
+    "related_patterns": ["Refactor to Understand", "Eliminate Navigation Code"],
+    "category": "Redistribute Responsibilities",
+    "tags": ["refactoring", "god-class", "single-responsibility", "code-smell"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Eliminate Navigation Code",
+    "intent": "Reduce coupling by eliminating chains of method calls that navigate through multiple objects.",
+    "problem": "Code contains long chains of method calls (Law of Demeter violations) that create tight coupling and make the code fragile to change.",
+    "context": "You've identified code with extensive navigation chains. The chains make code hard to understand and maintain. You can modify the involved classes.",
+    "solution": "Apply the principle 'Tell, Don't Ask'. Instead of navigating through objects to get data and make decisions, tell objects what to do and let them handle their own data. Move behavior closer to the data it operates on. Replace navigation chains with direct method calls. Use Extract Method and Move Method refactorings.",
+    "consequences": "Coupling is reduced. Objects become more self-contained. Code is more resilient to changes in object structure. However, this may require significant restructuring of responsibilities.",
+    "related_patterns": ["Split Up God Class", "Move Behavior Close to Data"],
+    "category": "Redistribute Responsibilities",
+    "tags": ["coupling", "law-of-demeter", "refactoring", "encapsulation"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Move Behavior Close to Data",
+    "intent": "Improve cohesion by moving behavior to the classes that own the data the behavior operates on.",
+    "problem": "Behavior is scattered across classes far from the data it manipulates. This creates poor cohesion and makes code hard to maintain.",
+    "context": "You've identified methods that primarily operate on data from other classes. The classes that own the data are modifiable.",
+    "solution": "Identify methods that extensively use data from another class. Move these methods to the class that owns the data. Update callers to use the moved methods. Apply Move Method and Move Field refactorings. Ensure the resulting classes are more cohesive.",
+    "consequences": "Classes become more cohesive and self-contained. Data and behavior are co-located, improving understandability. However, you may need to make some fields and methods public that were previously private.",
+    "related_patterns": ["Eliminate Navigation Code", "Split Up God Class"],
+    "category": "Redistribute Responsibilities",
+    "tags": ["cohesion", "refactoring", "data-behavior-locality", "encapsulation"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Introduce Null Object",
+    "intent": "Eliminate null checks by providing an object that represents 'no value' with neutral behavior.",
+    "problem": "Code is cluttered with null checks. Forgetting a null check causes errors. The absence of a value is a valid state that needs handling.",
+    "context": "A type frequently has null values that require checking. The checks are repetitive and error-prone. A neutral default behavior makes sense for the null case.",
+    "solution": "Create a Null Object class that implements the same interface as the real object but provides neutral do-nothing behavior. Replace null values with instances of the Null Object. Remove null checks from client code. Ensure the Null Object is recognizable if needed (e.g., via isNull() method).",
+    "consequences": "Null checks are eliminated. Code is cleaner and less error-prone. Behavior for the null case is explicitly defined. However, the pattern isn't appropriate when null checks are intentional and meaningful.",
+    "related_patterns": ["Move Behavior Close to Data", "Encapsulate Field"],
+    "category": "Transform Conditionals to Polymorphism",
+    "tags": ["null-handling", "design-pattern", "polymorphism", "code-simplification"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Encapsulate Field",
+    "intent": "Protect field access by replacing direct field access with getter and setter methods.",
+    "problem": "Fields are accessed directly throughout the codebase, making it impossible to add validation, computation, or change the internal representation.",
+    "context": "A field is accessed directly by external classes. You need to add logic around field access or want to protect against future changes.",
+    "solution": "Make the field private. Create public getter and setter methods. Update all external access to use the methods instead of direct field access. Add any necessary validation or computation in the accessors. Consider using properties or language-specific accessor patterns.",
+    "consequences": "You gain control over field access. You can add validation, logging, or computation. Internal representation can be changed without affecting clients. However, simple field access becomes slightly more verbose.",
+    "related_patterns": ["Move Behavior Close to Data", "Introduce Null Object"],
+    "category": "Transform Conditionals to Polymorphism",
+    "tags": ["encapsulation", "data-hiding", "refactoring", "getters-setters"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Always Have a Running Version",
+    "intent": "Maintain a working version of the system throughout the reengineering process.",
+    "problem": "Large-scale refactorings can break the system for extended periods, preventing testing and deployment of urgent fixes.",
+    "context": "You're undertaking a significant reengineering effort. The system must remain operational during the transition. Stakeholders need to see progress.",
+    "solution": "Make changes incrementally in small, verifiable steps. After each step, ensure the system still runs and passes all tests. Use feature toggles to hide incomplete features. Maintain both old and new implementations during transition. Never commit code that breaks the build. Deploy frequently to verify integration.",
+    "consequences": "The system remains operational throughout reengineering. Risk is reduced through incremental change. Progress is continuously verifiable. However, this approach requires discipline and may slow down individual changes.",
+    "related_patterns": ["Write Tests to Enable Evolution", "Build Confidence"],
+    "category": "Migration Strategies",
+    "tags": ["continuous-integration", "incremental-change", "risk-management", "deployment"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  },
+  {
+    "name": "Build Confidence",
+    "intent": "Establish trust in the reengineering process by delivering quick wins and demonstrating progress.",
+    "problem": "Stakeholders are skeptical about reengineering efforts. They need evidence that the investment will pay off.",
+    "context": "You're starting a reengineering project. Stakeholders are concerned about cost, risk, and timeline. You need to demonstrate value early.",
+    "solution": "Start with visible, valuable improvements that can be completed quickly. Fix annoying bugs. Improve performance in noticeable areas. Add small features that users have been requesting. Document and communicate each success. Build momentum with a series of wins before tackling harder problems.",
+    "consequences": "Stakeholder confidence increases. You gain support for larger refactorings. Team morale improves. However, focusing on quick wins may delay addressing fundamental architectural issues.",
+    "related_patterns": ["Always Have a Running Version", "Migrate Systems Incrementally"],
+    "category": "Migration Strategies",
+    "tags": ["stakeholder-management", "quick-wins", "trust-building", "incremental-delivery"],
+    "source_metadata": {
+      "source_name": "OORP",
+      "authors": ["Serge Demeyer", "Stéphane Ducasse", "Oscar Nierstrasz"],
+      "publication_year": 2003,
+      "url": "http://scg.unibe.ch/download/oorp/"
+    }
+  }
+]

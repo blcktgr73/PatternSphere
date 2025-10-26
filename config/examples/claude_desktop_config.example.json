@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "patternsphere": {
+      "command": "c:\\Projects\\PatternSphere\\venv\\Scripts\\python.exe",
+      "args": [
+        "c:\\Projects\\PatternSphere\\run_mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "c:\\Projects\\PatternSphere",
+        "PATTERNSPHERE_DATA_DIR": "c:\\Projects\\PatternSphere\\data"
+      }
+    }
+  }
+}
