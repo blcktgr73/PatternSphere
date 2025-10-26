@@ -41,6 +41,7 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+nul
 
 # Project specific
 data/sources/*/patterns.json
