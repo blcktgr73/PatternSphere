@@ -66,19 +66,22 @@ patternsphere view "Read all the Code in One Hour"
 patternsphere list --category "First Contact"
 ```
 
-### MCP Integration (Claude Code)
+### MCP Integration (Claude)
 
-PatternSphere can be used as an MCP (Model Context Protocol) server in Claude Code:
+PatternSphere can be used as an MCP (Model Context Protocol) server in both Claude Desktop and Claude Code:
 
 ```bash
 # 1. Complete the installation above
-# 2. Configure Claude Code
-# 3. Use in Claude Code:
+# 2. Configure Claude Desktop or Claude Code
+# 3. Use natural language in Claude:
 #    "Find patterns for refactoring legacy code"
 #    "Show me the 'Read all the Code in One Hour' pattern"
+#    "Recommend patterns for dealing with a God Class"
 ```
 
-**📖 See [MCP Quick Start](docs/mcp/MCP_QUICKSTART.md) for setup instructions.**
+**📖 Setup Instructions:**
+- **Claude Desktop:** [Claude Desktop Setup Guide](docs/mcp/CLAUDE_DESKTOP_SETUP.md)
+- **Claude Code (VSCode):** [MCP Quick Start](docs/mcp/MCP_QUICKSTART.md) ([한글](docs/mcp/MCP_QUICKSTART_KR.md))
 
 ## Usage
 
@@ -559,7 +562,8 @@ PatternSphere/
 
 ### User Documentation
 - **[CLI Reference](docs/CLI_Reference.md)**: Complete command reference with examples
-- **[MCP Quick Start](docs/mcp/MCP_QUICKSTART.md)**: MCP server setup and usage ([한글](docs/mcp/MCP_QUICKSTART_KR.md))
+- **[Claude Desktop Setup](docs/mcp/CLAUDE_DESKTOP_SETUP.md)**: MCP server setup for Claude Desktop
+- **[MCP Quick Start](docs/mcp/MCP_QUICKSTART.md)**: MCP server setup for Claude Code (VSCode) ([한글](docs/mcp/MCP_QUICKSTART_KR.md))
 - **[MCP Test Guide](docs/mcp/MCP_TEST_GUIDE.md)**: MCP server testing and troubleshooting ([한글](docs/mcp/MCP_TEST_GUIDE_KR.md))
 - **[File Structure](docs/FILE_STRUCTURE.md)**: Project organization and file reference ([한글](docs/FILE_STRUCTURE_KR.md))
 

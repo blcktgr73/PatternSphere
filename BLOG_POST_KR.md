@@ -97,26 +97,114 @@ patternsphere categories
 patternsphere info
 ```
 
-#### 4. MCP 서버 통합 (Claude Code와 연동)
+#### 4. MCP 서버 통합 (Claude와 연동)
+
+PatternSphere는 **MCP (Model Context Protocol)**를 통해 Claude Desktop과 Claude Code(VSCode 확장) 모두와 연동됩니다.
+
+##### 4-1. Claude Desktop 연결 방법
+
+**1단계: Claude Desktop 설정 파일 찾기**
+
+Windows:
+```
+%APPDATA%\Claude\claude_desktop_config.json
+```
+
+macOS:
+```
+~/Library/Application Support/Claude/claude_desktop_config.json
+```
+
+**2단계: 설정 파일 편집**
 
 ```json
-// Claude Desktop 설정
 {
   "mcpServers": {
     "patternsphere": {
-      "command": "python",
-      "args": ["c:\\Projects\\PatternSphere\\run_mcp_server.py"]
+      "command": "c:\\Projects\\PatternSphere\\venv\\Scripts\\python.exe",
+      "args": [
+        "c:\\Projects\\PatternSphere\\run_mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "c:\\Projects\\PatternSphere",
+        "PATTERNSPHERE_DATA_DIR": "c:\\Projects\\PatternSphere\\data"
+      }
     }
   }
 }
 ```
 
-이제 Claude Code에서 자연어로 패턴을 검색할 수 있습니다:
+**⚠️ 중요:**
+- 경로를 본인의 프로젝트 경로로 수정
+- Windows는 백슬래시를 이중으로 (`\\`) 작성
+- macOS/Linux는 일반 슬래시 (`/`) 사용
+
+**3단계: Claude Desktop 재시작**
+
+설정 파일 저장 후 Claude Desktop을 완전히 종료하고 재시작합니다.
+
+**4단계: 연결 확인**
+
+Claude Desktop에서 새 대화를 시작하고:
+
+```
+Claude에게: "사용 가능한 MCP 도구 목록 보여줘"
+```
+
+5개 도구가 보이면 성공:
+- search_patterns
+- get_pattern
+- list_categories
+- list_patterns
+- get_pattern_recommendations
+
+##### 4-2. Claude Code (VSCode) 연결 방법
+
+**단 한 줄의 명령으로 설정:**
+
+```bash
+claude mcp add --transport stdio patternsphere \
+  -e "PYTHONPATH=c:\\Projects\\PatternSphere" \
+  -e "PATTERNSPHERE_DATA_DIR=c:\\Projects\\PatternSphere\\data" \
+  -- "c:\\Projects\\PatternSphere\\venv\\Scripts\\python.exe" \
+     "c:\\Projects\\PatternSphere\\run_mcp_server.py"
+```
+
+**VSCode 재시작 후 확인:**
+```bash
+claude mcp list
+# patternsphere: ... - ✓ Connected
+```
+
+##### 4-3. 실제 사용 예시
+
+이제 Claude에서 자연어로 패턴을 검색할 수 있습니다:
 
 ```
 User: "레거시 코드 리팩토링을 위한 패턴 찾아줘"
-Claude: [PatternSphere MCP를 사용하여 관련 패턴 검색 및 추천]
+Claude: [PatternSphere MCP를 사용하여 관련 패턴 검색]
+
+결과:
+1. Read all the Code in One Hour (OORP-001)
+2. Skim the Documentation (OORP-002)
+3. Interview During Demo (OORP-003)
+...
 ```
+
+```
+User: "'Split Up God Class' 패턴 자세히 알려줘"
+Claude: [get_pattern 도구 사용]
+
+Pattern: Split Up God Class
+Category: Redistribute Responsibilities
+Intent: 신의 클래스(God Class)를 여러 책임별 클래스로 분리...
+Problem: 하나의 클래스가 너무 많은 책임을 가짐...
+Solution: 1. 책임 식별, 2. 새 클래스 추출, 3. 의존성 재배치...
+```
+
+**자세한 연결 가이드:**
+- Claude Desktop: [config/examples/claude_desktop_config.example.json](config/examples/claude_desktop_config.example.json)
+- Claude Code: [docs/mcp/MCP_QUICKSTART.md](docs/mcp/MCP_QUICKSTART.md)
 
 ### 아키텍처: SOLID 원칙의 실제 적용
 
